@@ -1,0 +1,515 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Digital Signal Processing MATLAB HW1 - q3</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-11-10"><meta name="DC.source" content="Q3.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Digital Signal Processing MATLAB HW1 - q3</h1><!--introduction--><p>Professor: Dr. Sheikhzadeh Author: Maryam Barazande - 9723016 E-mail: <a href="mailto:maryambarazande7@gmail.com">maryambarazande7@gmail.com</a> University: Amirkabir University of Technology</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Clear recent data</a></li><li><a href="#2">Window</a></li><li><a href="#3">Functions</a></li></ul></div><h2 id="1">Clear recent data</h2><pre class="codeinput">clear; close <span class="string">all</span>; clc;
+</pre><h2 id="2">Window</h2><pre class="codeinput">M1 = 10;
+M2 = 50;
+M3 = 101;
+<span class="comment">%%Plots of Rectangular Window for various values of M</span>
+figure(1);
+myPlot(1,M1);
+figure(2);
+myPlot(1,M2);
+figure(3);
+myPlot(1,M3);
+
+<span class="comment">%%Plots of Bartlett Window for various values of M</span>
+figure(4);
+myPlot(2,M1);
+figure(5);
+myPlot(2,M2);
+figure(6);
+myPlot(2,M3);
+
+<span class="comment">%%Plots of Hanning Window for various values of M</span>
+figure(7);
+myPlot(3,M1);
+figure(8);
+myPlot(3,M2);
+figure(9);
+myPlot(3,M3);
+
+<span class="comment">%%Plots of Hamming Window for various values of M</span>
+figure(10);
+myPlot(4,M1);
+figure(11);
+myPlot(4,M2);
+figure(12);
+myPlot(4,M3);
+
+<span class="comment">%%Plots of Blackman Window for various values of M</span>
+figure(13);
+myPlot(5,M1);
+figure(14);
+myPlot(5,M2);
+figure(15);
+myPlot(5,M3);
+</pre><img vspace="5" hspace="5" src="Q3_01.png" alt=""> <h2 id="3">Functions</h2><pre class="codeinput"><span class="keyword">function</span> R = myRect(M)
+<span class="comment">% Rectangular Window of Length M</span>
+	n=0:M;
+	R=ones(1,length(n));
+<span class="keyword">end</span>
+
+
+<span class="keyword">function</span> B = myBartlett(N)
+<span class="comment">% Bartlett Window of Lenrth N</span>
+    n = 1:N;
+    B = zeros(1,length(n)+1);
+    <span class="keyword">for</span> n = 1 : N
+        <span class="keyword">if</span> (n &lt;= ((N)/2))
+            B(n) = 2 *(n-1) /N ;
+        <span class="keyword">end</span>
+        <span class="keyword">if</span> ( n &gt; (N)/2 )
+            B(n) = 2 - 2 *(n-1) /N;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> C = myHanning(M)
+<span class="comment">% Hanning Window of Lenrth N</span>
+    n = 1:M;
+    C = zeros(1,length(n)+1);
+    <span class="keyword">for</span> n = 1:length(n)
+        C(n) = 0.5 *(1- cos(2*pi * (n-1)/(M-1)));
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> H = myHamming(M)
+<span class="comment">% Hamming Window of Lenrth N</span>
+    n = 1:M;
+    H = zeros(1,length(n)+1);
+    <span class="keyword">for</span> n = 1:length(n)+1
+        H(n) = (0.54- 0.46* cos(2*pi * (n-1)/(M-1)));
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> BL = myBlackman(M)
+<span class="comment">% Blackman Window of Lenrth N</span>
+    n = 1:M;
+    BL = zeros(1,length(n)+1);
+    <span class="keyword">for</span> n = 1:length(n)+1
+        BL(n)=(0.42- 0.5* cos(2*pi *(n-1)/(M-1)) +0.08* cos(4*pi*(n-1)/(M-1)));
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+
+<span class="keyword">function</span> myPlot(c,M1)
+
+    t = 0:M1 ;
+
+    <span class="keyword">switch</span> c
+        <span class="keyword">case</span> 1
+            <span class="comment">%Plot Rectangular Window</span>
+            R = myRect(M1);
+            subplot(1,2,1);
+            plot(t, R);
+            grid <span class="string">on</span>;
+            xlim([0,M1]);
+            ylim([0, 1.1]);
+            xlabel(<span class="string">"Samples"</span>);
+            ylabel(<span class="string">"Amplitude"</span>);
+            title(<span class="string">"Time Domain Rectangular Window"</span>, <span class="string">"M = "</span>+M1);
+            WR = linspace(-pi,pi,1024);
+            subplot(1,2,2);
+<span class="comment">%             [hR1, wR1] = freqz(R,1);</span>
+            HR = freqz(R,1,WR);
+<span class="comment">%             plot(wR1/pi,20*log10(abs(hR1)));</span>
+            plot(WR/pi,20*log(abs(HR)));
+            grid <span class="string">on</span>;
+            xlabel(<span class="string">"Normalized Frequency (*pi rad/sample)"</span>);
+            ylabel(<span class="string">"Magnitude(dB)"</span>);
+            title(<span class="string">"Frequency Domain Rectangular Window"</span>, <span class="string">"M = "</span>+M1);
+
+        <span class="keyword">case</span> 2
+            <span class="comment">%Plot Bartlett Window</span>
+            Ba = myBartlett(M1);
+            subplot(1,2,1);
+            plot(t, Ba);
+            grid <span class="string">on</span>;
+            xlim([0,M1]);
+            ylim([0, 1.1]);
+            xlabel(<span class="string">"Samples"</span>);
+            ylabel(<span class="string">"Amplitude"</span>);
+            title(<span class="string">"Time Domain Bartlett Window"</span>,<span class="string">"M = "</span>+M1);
+            WBa = linspace(-pi,pi,1024);
+<span class="comment">%             [hBa, wBa] = freqz(Ba,1);</span>
+            HBa = freqz(Ba,1,WBa);
+            subplot(1,2,2);
+<span class="comment">%             plot(wBa/pi,20*log10(abs(hBa)));</span>
+            plot(WBa/pi,20*log(abs(HBa)));
+            grid <span class="string">on</span>;
+            xlabel(<span class="string">"Normalized Frequency (*pi rad/sample)"</span>);
+            ylabel(<span class="string">"Magnitude(dB)"</span>);
+            title(<span class="string">"Frequency Domain Bartlett Window"</span>,<span class="string">"M = "</span>+M1);
+
+        <span class="keyword">case</span> 3
+            <span class="comment">%Plot Hanning Window</span>
+            C = myHanning(M1);
+            subplot(1,2,1);
+            plot(t, C);
+            grid <span class="string">on</span>;
+            xlim([0,M1]);
+            ylim([0, 1.1]);
+            xlabel(<span class="string">"Samples"</span>);
+            ylabel(<span class="string">"Amplitude"</span>);
+            title(<span class="string">"Time Domain Hanning Window"</span>,<span class="string">"M = "</span>+M1);
+            WC = linspace(-pi,pi,1024);
+<span class="comment">%             [hC, wC] = freqz(C,1);</span>
+            HC = freqz(C,1,WC);
+            subplot(1,2,2);
+<span class="comment">%             plot(wC/pi,20*log10(abs(hC)));</span>
+            plot(WC/pi,20*log(abs(HC)));
+            grid <span class="string">on</span>;
+            xlabel(<span class="string">"Normalized Frequency (*pi rad/sample)"</span>);
+            ylabel(<span class="string">"Magnitude(dB)"</span>);
+            title(<span class="string">"Frequency Domain Hanning Window"</span>,<span class="string">"M = "</span>+M1);
+
+        <span class="keyword">case</span> 4
+            <span class="comment">%Plot Hamming Window</span>
+            H = myHamming(M1);
+            subplot(1,2,1);
+            plot(t, H);
+            grid <span class="string">on</span>;
+            xlim([0,M1]);
+            ylim([0, 1.1]);
+            xlabel(<span class="string">"Samples"</span>);
+            ylabel(<span class="string">"Amplitude"</span>);
+            title(<span class="string">"Time Domain Hamming Window"</span>,<span class="string">"M = "</span>+M1);
+            WH = linspace(-pi,pi,1024);
+<span class="comment">%             [hH, wH] = freqz(H,1);</span>
+            HH = freqz(H,1,WH);
+            subplot(1,2,2);
+<span class="comment">%             plot(wH/pi,20*log10(abs(hH)));</span>
+            plot(WH/pi,20*log(abs(HH)));
+            grid <span class="string">on</span>;
+            xlabel(<span class="string">"Normalized Frequency (*pi rad/sample)"</span>);
+            ylabel(<span class="string">"Magnitude(dB)"</span>);
+            title(<span class="string">"Frequency Domain Hamming Window"</span>,<span class="string">"M = "</span>+M1);
+
+        <span class="keyword">case</span> 5
+            <span class="comment">%Plot Blackman Window</span>
+            BL = myBlackman(M1);
+            subplot(1,2,1);
+            plot(t, BL);
+            grid <span class="string">on</span>;
+            xlim([0,M1]);
+            ylim([0, 1.1]);
+            xlabel(<span class="string">"Samples"</span>);
+            ylabel(<span class="string">"Amplitude"</span>);
+            title(<span class="string">"Time Domain Blackman Window"</span>,<span class="string">"M = "</span>+M1);
+            WBL = linspace(-pi,pi,1024);
+<span class="comment">%             [hBL, wBL] = freqz(BL,1);</span>
+            HBL = freqz(BL,1,WBL);
+            subplot(1,2,2);
+<span class="comment">%             plot(wBL/pi,20*log10(abs(hBL)));</span>
+            plot(WBL/pi,20*log(abs(HBL)));
+            grid <span class="string">on</span>;
+            xlabel(<span class="string">"Normalized Frequency (*pi rad/sample)"</span>);
+            ylabel(<span class="string">"Magnitude(dB)"</span>);
+            title(<span class="string">"Frequency Domain Hamming Window"</span>,<span class="string">"M = "</span>+M1);
+
+    <span class="keyword">end</span>
+
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="Q3_02.png" alt=""> <img vspace="5" hspace="5" src="Q3_03.png" alt=""> <img vspace="5" hspace="5" src="Q3_04.png" alt=""> <img vspace="5" hspace="5" src="Q3_05.png" alt=""> <img vspace="5" hspace="5" src="Q3_06.png" alt=""> <img vspace="5" hspace="5" src="Q3_07.png" alt=""> <img vspace="5" hspace="5" src="Q3_08.png" alt=""> <img vspace="5" hspace="5" src="Q3_09.png" alt=""> <img vspace="5" hspace="5" src="Q3_10.png" alt=""> <img vspace="5" hspace="5" src="Q3_11.png" alt=""> <img vspace="5" hspace="5" src="Q3_12.png" alt=""> <img vspace="5" hspace="5" src="Q3_13.png" alt=""> <img vspace="5" hspace="5" src="Q3_14.png" alt=""> <img vspace="5" hspace="5" src="Q3_15.png" alt=""> <img vspace="5" hspace="5" src="Q3_16.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Digital Signal Processing MATLAB HW1 - q3
+% Professor: Dr. Sheikhzadeh
+% Author: Maryam Barazande - 9723016
+% E-mail: maryambarazande7@gmail.com
+% University: Amirkabir University of Technology
+%% Clear recent data
+clear; close all; clc;
+%% Window
+M1 = 10;
+M2 = 50;
+M3 = 101;
+%%Plots of Rectangular Window for various values of M
+figure(1);
+myPlot(1,M1);
+figure(2);
+myPlot(1,M2);
+figure(3);
+myPlot(1,M3);
+
+%%Plots of Bartlett Window for various values of M
+figure(4);
+myPlot(2,M1);
+figure(5);
+myPlot(2,M2);
+figure(6);
+myPlot(2,M3);
+
+%%Plots of Hanning Window for various values of M
+figure(7);
+myPlot(3,M1);
+figure(8);
+myPlot(3,M2);
+figure(9);
+myPlot(3,M3);
+
+%%Plots of Hamming Window for various values of M
+figure(10);
+myPlot(4,M1);
+figure(11);
+myPlot(4,M2);
+figure(12);
+myPlot(4,M3);
+
+%%Plots of Blackman Window for various values of M
+figure(13);
+myPlot(5,M1);
+figure(14);
+myPlot(5,M2);
+figure(15);
+myPlot(5,M3);
+
+
+
+%% Functions
+
+function R = myRect(M)
+% Rectangular Window of Length M
+	n=0:M;
+	R=ones(1,length(n));
+end
+
+
+function B = myBartlett(N)
+% Bartlett Window of Lenrth N
+    n = 1:N;
+    B = zeros(1,length(n)+1);
+    for n = 1 : N
+        if (n <= ((N)/2))
+            B(n) = 2 *(n-1) /N ;
+        end
+        if ( n > (N)/2 )
+            B(n) = 2 - 2 *(n-1) /N;
+        end
+    end
+
+
+end
+
+function C = myHanning(M)
+% Hanning Window of Lenrth N
+    n = 1:M;
+    C = zeros(1,length(n)+1);
+    for n = 1:length(n)
+        C(n) = 0.5 *(1- cos(2*pi * (n-1)/(M-1)));
+    end
+end
+
+function H = myHamming(M)
+% Hamming Window of Lenrth N
+    n = 1:M;
+    H = zeros(1,length(n)+1);
+    for n = 1:length(n)+1
+        H(n) = (0.54- 0.46* cos(2*pi * (n-1)/(M-1)));
+    end
+end
+
+function BL = myBlackman(M)
+% Blackman Window of Lenrth N
+    n = 1:M;
+    BL = zeros(1,length(n)+1);
+    for n = 1:length(n)+1
+        BL(n)=(0.42- 0.5* cos(2*pi *(n-1)/(M-1)) +0.08* cos(4*pi*(n-1)/(M-1)));
+    end
+end
+
+
+function myPlot(c,M1)
+    
+    t = 0:M1 ; 
+    
+    switch c
+        case 1
+            %Plot Rectangular Window
+            R = myRect(M1);
+            subplot(1,2,1);
+            plot(t, R);
+            grid on;
+            xlim([0,M1]);
+            ylim([0, 1.1]);
+            xlabel("Samples");
+            ylabel("Amplitude");
+            title("Time Domain Rectangular Window", "M = "+M1);
+            WR = linspace(-pi,pi,1024);
+            subplot(1,2,2);
+%             [hR1, wR1] = freqz(R,1);
+            HR = freqz(R,1,WR);
+%             plot(wR1/pi,20*log10(abs(hR1)));
+            plot(WR/pi,20*log(abs(HR)));
+            grid on;
+            xlabel("Normalized Frequency (*pi rad/sample)");
+            ylabel("Magnitude(dB)");
+            title("Frequency Domain Rectangular Window", "M = "+M1);
+            
+        case 2
+            %Plot Bartlett Window
+            Ba = myBartlett(M1);
+            subplot(1,2,1);
+            plot(t, Ba);
+            grid on;
+            xlim([0,M1]);
+            ylim([0, 1.1]);
+            xlabel("Samples");
+            ylabel("Amplitude");
+            title("Time Domain Bartlett Window","M = "+M1);
+            WBa = linspace(-pi,pi,1024);
+%             [hBa, wBa] = freqz(Ba,1);
+            HBa = freqz(Ba,1,WBa);
+            subplot(1,2,2);
+%             plot(wBa/pi,20*log10(abs(hBa)));
+            plot(WBa/pi,20*log(abs(HBa)));
+            grid on;
+            xlabel("Normalized Frequency (*pi rad/sample)");
+            ylabel("Magnitude(dB)");
+            title("Frequency Domain Bartlett Window","M = "+M1);
+            
+        case 3
+            %Plot Hanning Window
+            C = myHanning(M1);
+            subplot(1,2,1);
+            plot(t, C);
+            grid on;
+            xlim([0,M1]);
+            ylim([0, 1.1]);
+            xlabel("Samples");
+            ylabel("Amplitude");
+            title("Time Domain Hanning Window","M = "+M1);
+            WC = linspace(-pi,pi,1024);
+%             [hC, wC] = freqz(C,1);
+            HC = freqz(C,1,WC);
+            subplot(1,2,2);
+%             plot(wC/pi,20*log10(abs(hC)));
+            plot(WC/pi,20*log(abs(HC)));
+            grid on;
+            xlabel("Normalized Frequency (*pi rad/sample)");
+            ylabel("Magnitude(dB)");
+            title("Frequency Domain Hanning Window","M = "+M1);
+         
+        case 4
+            %Plot Hamming Window
+            H = myHamming(M1);
+            subplot(1,2,1);
+            plot(t, H);
+            grid on;
+            xlim([0,M1]);
+            ylim([0, 1.1]);
+            xlabel("Samples");
+            ylabel("Amplitude");
+            title("Time Domain Hamming Window","M = "+M1);
+            WH = linspace(-pi,pi,1024);
+%             [hH, wH] = freqz(H,1);
+            HH = freqz(H,1,WH);
+            subplot(1,2,2);
+%             plot(wH/pi,20*log10(abs(hH)));
+            plot(WH/pi,20*log(abs(HH)));
+            grid on;
+            xlabel("Normalized Frequency (*pi rad/sample)");
+            ylabel("Magnitude(dB)");
+            title("Frequency Domain Hamming Window","M = "+M1);
+            
+        case 5
+            %Plot Blackman Window
+            BL = myBlackman(M1);
+            subplot(1,2,1);
+            plot(t, BL);
+            grid on;
+            xlim([0,M1]);
+            ylim([0, 1.1]);
+            xlabel("Samples");
+            ylabel("Amplitude");
+            title("Time Domain Blackman Window","M = "+M1);
+            WBL = linspace(-pi,pi,1024);
+%             [hBL, wBL] = freqz(BL,1);
+            HBL = freqz(BL,1,WBL);
+            subplot(1,2,2);
+%             plot(wBL/pi,20*log10(abs(hBL)));
+            plot(WBL/pi,20*log(abs(HBL)));
+            grid on;
+            xlabel("Normalized Frequency (*pi rad/sample)");
+            ylabel("Magnitude(dB)");
+            title("Frequency Domain Hamming Window","M = "+M1);
+            
+    end
+    
+end
+
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
