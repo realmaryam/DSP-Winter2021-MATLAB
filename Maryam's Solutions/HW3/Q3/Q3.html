@@ -1,0 +1,283 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Digital Signal Processing MATLAB HW3 - q3</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-01-05"><meta name="DC.source" content="Q3.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Digital Signal Processing MATLAB HW3 - q3</h1><!--introduction--><p>Professor: Dr. Sheikhzadeh Author: Maryam Barazande - 9723016 E-mail: <a href="mailto:maryambarazande7@gmail.com">maryambarazande7@gmail.com</a> University: Amirkabir University of Technology</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Clear recent data</a></li><li><a href="#2">Convolution and DFT</a></li><li><a href="#3">D. DFT Properties</a></li><li><a href="#4">1st Signal pair</a></li><li><a href="#5">2nd Signal pair</a></li><li><a href="#6">A. cflip function</a></li><li><a href="#7">B. cshift function</a></li><li><a href="#8">C. Circular Convolution</a></li></ul></div><h2 id="1">Clear recent data</h2><pre class="codeinput">clear; close <span class="string">all</span>; clc;
+</pre><h2 id="2">Convolution and DFT</h2><h2 id="3">D. DFT Properties</h2><h2 id="4">1st Signal pair</h2><pre class="codeinput">x1 = [0 0 0 0 1 1 1 1];
+x2 = [0 0 0 0 1 1 1 1 1 1 1 1];
+N = 21;
+<span class="comment">% Method 1</span>
+cconv1 = cconv(x1,x2,N);
+figure(1);
+subplot(2,1,1);
+plot(cconv1);
+hold <span class="string">on</span>;
+stem(cconv1);
+ylabel(<span class="string">"Method 1 (cconv)"</span>);
+title(<span class="string">'Circular Convolutin 1st Signal pair'</span>);
+<span class="comment">% Method 2</span>
+Y1 = fft(x1,N).*fft(x2,N);
+y = ifft(Y1,N);
+subplot(2,1,2);
+plot(y);
+hold <span class="string">on</span>;
+stem(y);
+ylabel(<span class="string">"Method 2 (Using FFT)"</span>);
+</pre><img vspace="5" hspace="5" src="Q3_01.png" alt=""> <h2 id="5">2nd Signal pair</h2><pre class="codeinput">s1 = [0 0 0 0 0 1 1 1 1 1 1 1];
+s2 = [0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1];
+N = 21;
+<span class="comment">% Method 1</span>
+cconv2 = cconv(s1,s2,N);
+figure(2);
+subplot(2,1,1);
+plot(cconv2);
+hold <span class="string">on</span>;
+stem(cconv2);
+ylabel(<span class="string">"Method 1 (cconv)"</span>);
+title(<span class="string">'Circular Convolutin 2nd Signal pair'</span>);
+<span class="comment">% Method 2</span>
+Y2 = fft(s1,N).*fft(s2,N);
+y2 = ifft(Y2,N);
+subplot(2,1,2);
+plot(y2);
+hold <span class="string">on</span>;
+stem(y2);
+ylabel(<span class="string">"Method 2 (Using FFT)"</span>);
+</pre><h2 id="6">A. cflip function</h2><pre class="codeinput"><span class="keyword">function</span> cflipped_sig = cflip(sig,N)
+Len = length(sig);
+sig = [sig,zeros(1,N-Len)];
+y1 = zeros(1,N);
+y2 = zeros(1,N);
+
+<span class="keyword">if</span> N &gt;= Len
+    <span class="keyword">for</span> i = 1 : N
+       y1(i) = y1(i) + sig(N+1-i);
+    <span class="keyword">end</span>
+<span class="keyword">else</span>
+    j = Len - N;
+    <span class="keyword">for</span> i = j+1 : N
+        y1(i) = sig(i);
+    <span class="keyword">end</span>
+    <span class="keyword">for</span> i = 1 : j
+        y1(i) = sig(i) + sig(i + N);
+    <span class="keyword">end</span>
+    <span class="keyword">for</span> i = 1 : N
+    y2(i) = y1( N - i + 1 );
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="keyword">if</span> N &gt;= Len
+    cflipped_sig = y1;
+<span class="keyword">else</span>
+    cflipped_sig = y2;
+<span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><h2 id="7">B. cshift function</h2><pre class="codeinput"><span class="keyword">function</span> cshifted_sig = cshift(sig, m)
+Len = length(sig);
+m = mod(m,Len);
+<span class="keyword">for</span> i =1 : m
+    y(i) = sig(Len-m+i);
+<span class="keyword">end</span>
+<span class="keyword">for</span> j = 1 : Len-m
+    y(j+m) = sig(j);
+<span class="keyword">end</span>
+cshifted_sig = y;
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="Q3_02.png" alt=""> <h2 id="8">C. Circular Convolution</h2><pre class="codeinput"><span class="keyword">function</span> output_sig = cconv(sig1,sig2,N)
+Len1 = length(sig1);
+sig2 = cflip(sig2,N);
+y = zeros(1,N);
+v = zeros(1,N);
+
+<span class="keyword">for</span> i = 1 : Len1
+    v(i) = sig1(i) ;
+<span class="keyword">end</span>
+
+<span class="keyword">for</span> j = 1 : N
+    h = cshift(sig2,(j-1)) ;
+    y(j) = v * (h') ;
+<span class="keyword">end</span>
+output_sig = cshift(y,-1) ;
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Digital Signal Processing MATLAB HW3 - q3
+% Professor: Dr. Sheikhzadeh
+% Author: Maryam Barazande - 9723016
+% E-mail: maryambarazande7@gmail.com
+% University: Amirkabir University of Technology
+%% Clear recent data
+clear; close all; clc;
+%% Convolution and DFT
+%% D. DFT Properties
+%% 1st Signal pair
+x1 = [0 0 0 0 1 1 1 1];
+x2 = [0 0 0 0 1 1 1 1 1 1 1 1];
+N = 21;
+% Method 1
+cconv1 = cconv(x1,x2,N);
+figure(1);
+subplot(2,1,1);
+plot(cconv1);
+hold on;
+stem(cconv1);
+ylabel("Method 1 (cconv)");
+title('Circular Convolutin 1st Signal pair');
+% Method 2
+Y1 = fft(x1,N).*fft(x2,N);
+y = ifft(Y1,N);
+subplot(2,1,2);
+plot(y);
+hold on;
+stem(y);
+ylabel("Method 2 (Using FFT)");
+
+%% 2nd Signal pair
+s1 = [0 0 0 0 0 1 1 1 1 1 1 1];
+s2 = [0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1];
+N = 21;
+% Method 1
+cconv2 = cconv(s1,s2,N);
+figure(2);
+subplot(2,1,1);
+plot(cconv2);
+hold on;
+stem(cconv2);
+ylabel("Method 1 (cconv)");
+title('Circular Convolutin 2nd Signal pair');
+% Method 2
+Y2 = fft(s1,N).*fft(s2,N);
+y2 = ifft(Y2,N);
+subplot(2,1,2);
+plot(y2);
+hold on;
+stem(y2);
+ylabel("Method 2 (Using FFT)");
+
+%% A. cflip function
+function cflipped_sig = cflip(sig,N) 
+Len = length(sig);
+sig = [sig,zeros(1,N-Len)];
+y1 = zeros(1,N);
+y2 = zeros(1,N);
+
+if N >= Len
+    for i = 1 : N
+       y1(i) = y1(i) + sig(N+1-i);
+    end
+else
+    j = Len - N;
+    for i = j+1 : N
+        y1(i) = sig(i);
+    end
+    for i = 1 : j
+        y1(i) = sig(i) + sig(i + N);
+    end
+    for i = 1 : N
+    y2(i) = y1( N - i + 1 );
+    end
+end 
+if N >= Len
+    cflipped_sig = y1;
+else
+    cflipped_sig = y2;
+end
+end
+
+%% B. cshift function
+function cshifted_sig = cshift(sig, m)
+Len = length(sig);
+m = mod(m,Len); 
+for i =1 : m
+    y(i) = sig(Len-m+i);
+end
+for j = 1 : Len-m
+    y(j+m) = sig(j);
+end
+cshifted_sig = y;
+end
+
+%% C. Circular Convolution
+function output_sig = cconv(sig1,sig2,N)
+Len1 = length(sig1);
+sig2 = cflip(sig2,N);
+y = zeros(1,N);
+v = zeros(1,N);
+
+for i = 1 : Len1
+    v(i) = sig1(i) ;
+end
+
+for j = 1 : N
+    h = cshift(sig2,(j-1)) ;
+    y(j) = v * (h') ;
+end
+output_sig = cshift(y,-1) ;
+end
+
+##### SOURCE END #####
+--></body></html>

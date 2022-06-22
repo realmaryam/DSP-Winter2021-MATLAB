@@ -1,0 +1,593 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Digital Signal Processing MATLAB HW2 - q1</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-12-17"><meta name="DC.source" content="Q1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Digital Signal Processing MATLAB HW2 - q1</h1><!--introduction--><p>Professor: Dr. Sheikhzadeh Author: Maryam Barazande - 9723016 E-mail: <a href="mailto:maryambarazande7@gmail.com">maryambarazande7@gmail.com</a> University: Amirkabir University of Technology</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Clear recent data</a></li><li><a href="#2">RECONSTRUCTION</a></li><li><a href="#3">A. Sampling</a></li><li><a href="#4">PART 1</a></li><li><a href="#5">PART 2</a></li><li><a href="#6">B. Interpolation</a></li><li><a href="#7">PART 1. Linear Interpolation</a></li><li><a href="#8">PART2. Sinc Interpolation</a></li></ul></div><h2 id="1">Clear recent data</h2><pre class="codeinput">clear; close <span class="string">all</span>; clc;
+</pre><h2 id="2">RECONSTRUCTION</h2><h2 id="3">A. Sampling</h2><h2 id="4">PART 1</h2><p>define parameters</p><pre class="codeinput">f = 10;
+t = 0:0.001:0.2 ;
+
+<span class="comment">% compute signals</span>
+y1 = sin(2*pi*f*t) + cos(4*pi*f*t);
+y2 = sawtooth(2*pi*f*t);
+
+<span class="comment">% plot signals</span>
+figure(1);
+subplot(2,1,1);
+plot(t,y1);
+title(<span class="string">"Original Signal y1"</span>);
+xlabel(<span class="string">'Time'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+subplot(2,1,2);
+plot(t,y2);
+title(<span class="string">"Original Signal y2"</span>);
+xlabel(<span class="string">'Time'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+</pre><img vspace="5" hspace="5" src="Q1_01.png" alt=""> <h2 id="5">PART 2</h2><p>define parameters</p><pre class="codeinput">fs = 100;
+ts = 0: 1/fs:0.2 ;
+
+<span class="comment">% sampling signals</span>
+ys1 = sin(2*pi*f*ts) + cos(4*pi*f*ts);
+ys2 = sawtooth(2*pi*f*ts);
+
+<span class="comment">% plot signals</span>
+figure(2);
+subplot(2,1,1);
+plot(t,y1);
+hold <span class="string">on</span>;
+stem(ts,ys1);
+title(<span class="string">"signal y1 sampled with Fs = 100Hz"</span>);
+xlabel(<span class="string">'Time'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Original signal'</span>, <span class="string">'Sampled signal'</span>);
+subplot(2,1,2);
+plot(t,y2);
+hold <span class="string">on</span>;
+stem(ts,ys2);
+title(<span class="string">"signal y2 sampled with Fs = 100Hz"</span>);
+xlabel(<span class="string">'Time'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Original signal'</span>, <span class="string">'Sampled signal'</span>);
+</pre><img vspace="5" hspace="5" src="Q1_02.png" alt=""> <h2 id="6">B. Interpolation</h2><h2 id="7">PART 1. Linear Interpolation</h2><pre class="codeinput">fs_interp1 = 100;
+ts_interp1 = 0:1/fs_interp1:0.2;
+ys1_interp1 = interp1(t,y1,ts_interp1,<span class="string">"linear"</span>);
+
+<span class="comment">% plot signals</span>
+figure(3);
+subplot(2,1,1);
+plot(ts_interp1,ys1_interp1);
+hold <span class="string">on</span>;
+stem(ts_interp1,ys1_interp1,<span class="string">'r'</span>);
+grid <span class="string">minor</span>;
+title(<span class="string">"Linear Interpolated Signal y1 (Fs = 100)"</span>);
+xlabel(<span class="string">'Time'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Continuous'</span>, <span class="string">'Discrete'</span>);
+
+ys2_interp1 = interp1(t,y2,ts_interp1,<span class="string">"linear"</span>);
+subplot(2,1,2);
+plot(ts_interp1,ys2_interp1);
+hold <span class="string">on</span>;
+stem(ts_interp1,ys2_interp1,<span class="string">'r'</span>);
+grid <span class="string">minor</span>;
+title(<span class="string">"Linear Interpolated Signal y2 (Fs = 100)"</span>);
+xlabel(<span class="string">'Time '</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Continuous'</span>, <span class="string">'Discrete'</span>);
+</pre><img vspace="5" hspace="5" src="Q1_03.png" alt=""> <h2 id="8">PART2. Sinc Interpolation</h2><pre class="codeinput"><span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%% 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+yr1 = zeros(size(t));
+yr2 = zeros(size(t));
+<span class="comment">% reconstructing signals by sinc interpolation</span>
+<span class="keyword">for</span> i = 1 : length(t)
+ <span class="keyword">for</span> n = 0 : length(ts) - 1
+ yr1(i) = yr1(i) + ys1(n + 1) * sinc((t(i) - n * (1/fs)) *fs);
+ yr2(i) = yr2(i) + ys2(n + 1) * sinc((t(i) - n * (1/fs)) *fs);
+ <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="comment">% plot signals</span>
+figure(4);
+subplot(2, 1, 1);
+plot(t, yr1);
+hold <span class="string">on</span>;
+stem(ts, ys1);
+grid <span class="string">minor</span>;
+title(<span class="string">'Reconstructed signal y1 by sinc interpolation (Fs = 100Hz)'</span>);
+xlabel(<span class="string">'Time [sec]'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+
+subplot(2, 1, 2);
+plot(t, yr2);
+hold <span class="string">on</span>;
+stem(ts, ys2);
+grid <span class="string">minor</span>;
+title(<span class="string">'Reconstructed signal y2 by sinc interpolation (Fs = 100Hz)'</span>);
+xlabel(<span class="string">'Time [sec]'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%% 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="comment">% Setting different Values for Fs then sample and sinc interpolation</span>
+<span class="comment">%%%% Fs = 50;</span>
+<span class="comment">% sampling signals</span>
+fs_new = 50;
+ts_new = 0: 1/fs_new :0.2 ;
+ys1_new = sin(2*pi*f*ts_new) + cos(4*pi*f*ts_new);
+ys2_new = sawtooth(2*pi*f*ts_new);
+
+figure(5);
+subplot(2,1,1);
+plot(t,y1);
+hold <span class="string">on</span>;
+stem(ts_new,ys1_new);
+title(<span class="string">"signal y1 sampled with Fs = 50Hz"</span>);
+xlabel(<span class="string">'Time'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Original signal'</span>, <span class="string">'Sampled signal'</span>);
+subplot(2,1,2);
+plot(t,y2);
+hold <span class="string">on</span>;
+stem(ts_new,ys2_new);
+title(<span class="string">"signal y2 sampled with Fs = 50Hz"</span>);
+xlabel(<span class="string">'Time'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Original signal'</span>, <span class="string">'Sampled signal'</span>);
+
+<span class="comment">% reconstructing signals by sinc interpolation</span>
+yr1_new = zeros(size(t));
+yr2_new = zeros(size(t));
+
+<span class="keyword">for</span> i = 1 : length(t)
+ <span class="keyword">for</span> n = 0 : length(ts_new) - 1
+ yr1_new(i) = yr1_new(i) + ys1_new(n + 1) * sinc((t(i) - n * (1/fs_new)) *fs_new);
+ yr2_new(i) = yr2_new(i) + ys2_new(n + 1) * sinc((t(i) - n * (1/fs_new)) *fs_new);
+ <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment">% plot signals</span>
+figure(6);
+subplot(2, 1, 1);
+plot(t,y1);
+hold <span class="string">on</span>;
+stem(ts_new, ys1_new);
+hold <span class="string">on</span>;
+plot(t, yr1_new);
+grid <span class="string">minor</span>;
+title(<span class="string">'Reconstructed signal y1 by sinc interpolation (Fs = 50Hz)'</span>);
+xlabel(<span class="string">'Time [sec]'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Original signal'</span>, <span class="string">'Sampled signal'</span>,<span class="string">'reconstructed signal'</span>);
+
+subplot(2, 1, 2);
+plot(t,y2);
+hold <span class="string">on</span>;
+stem(ts_new, ys2_new);
+hold <span class="string">on</span>;
+plot(t, yr2_new);
+grid <span class="string">minor</span>;
+title(<span class="string">'Reconstructed signal y2 by sinc interpolation (Fs = 50Hz)'</span>);
+xlabel(<span class="string">'Time [sec]'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Original signal'</span>, <span class="string">'Sampled signal'</span>,<span class="string">'reconstructed signal'</span>);
+
+<span class="comment">%%%% Fs = 35</span>
+<span class="comment">% sampling signals</span>
+fs_new = 35;
+ts_new = 0: 1/fs_new :0.2 ;
+ys1_new = sin(2*pi*f*ts_new) + cos(4*pi*f*ts_new);
+ys2_new = sawtooth(2*pi*f*ts_new);
+
+figure(7);
+subplot(2,1,1);
+plot(t,y1);
+hold <span class="string">on</span>;
+stem(ts_new,ys1_new);
+title(<span class="string">"signal y1 sampled with Fs = 35Hz"</span>);
+xlabel(<span class="string">'Time'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Original signal'</span>, <span class="string">'Sampled signal'</span>);
+subplot(2,1,2);
+plot(t,y2);
+hold <span class="string">on</span>;
+stem(ts_new,ys2_new);
+title(<span class="string">"signal y2 sampled with Fs = 35Hz"</span>);
+xlabel(<span class="string">'Time'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Original signal'</span>, <span class="string">'Sampled signal'</span>);
+
+<span class="comment">% reconstructing signals by sinc interpolation</span>
+yr1_new = zeros(size(t));
+yr2_new = zeros(size(t));
+
+<span class="keyword">for</span> i = 1 : length(t)
+ <span class="keyword">for</span> n = 0 : length(ts_new) - 1
+ yr1_new(i) = yr1_new(i) + ys1_new(n + 1) * sinc((t(i) - n * (1/fs_new)) *fs_new);
+ yr2_new(i) = yr2_new(i) + ys2_new(n + 1) * sinc((t(i) - n * (1/fs_new)) *fs_new);
+ <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment">% plot signals</span>
+figure(8);
+subplot(2, 1, 1);
+plot(t,y1);
+hold <span class="string">on</span>;
+stem(ts_new, ys1_new);
+hold <span class="string">on</span>;
+plot(t, yr1_new);
+grid <span class="string">minor</span>;
+title(<span class="string">'Reconstructed signal y1 by sinc interpolation (Fs = 35Hz)'</span>);
+xlabel(<span class="string">'Time [sec]'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Original signal'</span>, <span class="string">'Sampled signal'</span>,<span class="string">'reconstructed signal'</span>);
+
+subplot(2, 1, 2);
+plot(t,y2);
+hold <span class="string">on</span>;
+stem(ts_new, ys2_new);
+hold <span class="string">on</span>;
+plot(t, yr2_new);
+grid <span class="string">minor</span>;
+title(<span class="string">'Reconstructed signal y2 by sinc interpolation (Fs = 35Hz)'</span>);
+xlabel(<span class="string">'Time [sec]'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Original signal'</span>, <span class="string">'Sampled signal'</span>,<span class="string">'reconstructed signal'</span>);
+
+
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%% 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+figure(9);
+subplot(2, 1, 1);
+plot(t,y1);
+hold <span class="string">on</span>;
+plot(t, yr1_new);
+grid <span class="string">minor</span>;
+title(<span class="string">'Reconstructed signal y1 vs the Original (Fs = 35Hz)'</span>);
+xlabel(<span class="string">'Time [sec]'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Original signal'</span>, <span class="string">'reconstructed signal'</span>);
+
+subplot(2, 1, 2);
+plot(t,y2);
+hold <span class="string">on</span>;
+plot(t, yr2_new);
+grid <span class="string">minor</span>;
+title(<span class="string">'Reconstructed signal y2 vs the Original (Fs = 35Hz)'</span>);
+xlabel(<span class="string">'Time [sec]'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Original signal'</span>,<span class="string">'reconstructed signal'</span>);
+</pre><img vspace="5" hspace="5" src="Q1_04.png" alt=""> <img vspace="5" hspace="5" src="Q1_05.png" alt=""> <img vspace="5" hspace="5" src="Q1_06.png" alt=""> <img vspace="5" hspace="5" src="Q1_07.png" alt=""> <img vspace="5" hspace="5" src="Q1_08.png" alt=""> <img vspace="5" hspace="5" src="Q1_09.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Digital Signal Processing MATLAB HW2 - q1
+% Professor: Dr. Sheikhzadeh
+% Author: Maryam Barazande - 9723016
+% E-mail: maryambarazande7@gmail.com
+% University: Amirkabir University of Technology
+%% Clear recent data
+clear; close all; clc;
+%% RECONSTRUCTION
+%% A. Sampling
+%% PART 1
+% define parameters
+f = 10;
+t = 0:0.001:0.2 ;
+
+% compute signals
+y1 = sin(2*pi*f*t) + cos(4*pi*f*t);
+y2 = sawtooth(2*pi*f*t);
+
+% plot signals
+figure(1);
+subplot(2,1,1);
+plot(t,y1);
+title("Original Signal y1");
+xlabel('Time');
+ylabel('Amplitude');
+subplot(2,1,2);
+plot(t,y2);
+title("Original Signal y2");
+xlabel('Time');
+ylabel('Amplitude');
+
+%% PART 2
+% define parameters
+fs = 100;
+ts = 0: 1/fs:0.2 ;
+
+% sampling signals
+ys1 = sin(2*pi*f*ts) + cos(4*pi*f*ts);
+ys2 = sawtooth(2*pi*f*ts);
+
+% plot signals
+figure(2);
+subplot(2,1,1);
+plot(t,y1);
+hold on;
+stem(ts,ys1);
+title("signal y1 sampled with Fs = 100Hz");
+xlabel('Time');
+ylabel('Amplitude');
+legend('Original signal', 'Sampled signal');
+subplot(2,1,2);
+plot(t,y2);
+hold on;
+stem(ts,ys2);
+title("signal y2 sampled with Fs = 100Hz");
+xlabel('Time');
+ylabel('Amplitude');
+legend('Original signal', 'Sampled signal');
+
+%% B. Interpolation
+%% PART 1. Linear Interpolation
+fs_interp1 = 100;
+ts_interp1 = 0:1/fs_interp1:0.2;
+ys1_interp1 = interp1(t,y1,ts_interp1,"linear");
+
+% plot signals
+figure(3);
+subplot(2,1,1);
+plot(ts_interp1,ys1_interp1);
+hold on;
+stem(ts_interp1,ys1_interp1,'r');
+grid minor;
+title("Linear Interpolated Signal y1 (Fs = 100)");
+xlabel('Time');
+ylabel('Amplitude');
+legend('Continuous', 'Discrete');
+
+ys2_interp1 = interp1(t,y2,ts_interp1,"linear");
+subplot(2,1,2);
+plot(ts_interp1,ys2_interp1);
+hold on;
+stem(ts_interp1,ys2_interp1,'r');
+grid minor;
+title("Linear Interpolated Signal y2 (Fs = 100)");
+xlabel('Time ');
+ylabel('Amplitude');
+legend('Continuous', 'Discrete');
+
+
+%% PART2. Sinc Interpolation
+%%%%%%%%%%%%%%%%%%%%%%%%%%% 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+yr1 = zeros(size(t));
+yr2 = zeros(size(t));
+% reconstructing signals by sinc interpolation
+for i = 1 : length(t)
+ for n = 0 : length(ts) - 1
+ yr1(i) = yr1(i) + ys1(n + 1) * sinc((t(i) - n * (1/fs)) *fs);
+ yr2(i) = yr2(i) + ys2(n + 1) * sinc((t(i) - n * (1/fs)) *fs);
+ end
+end
+% plot signals
+figure(4);
+subplot(2, 1, 1);
+plot(t, yr1);
+hold on;
+stem(ts, ys1);
+grid minor;
+title('Reconstructed signal y1 by sinc interpolation (Fs = 100Hz)');
+xlabel('Time [sec]');
+ylabel('Amplitude');
+
+subplot(2, 1, 2);
+plot(t, yr2);
+hold on;
+stem(ts, ys2);
+grid minor;
+title('Reconstructed signal y2 by sinc interpolation (Fs = 100Hz)');
+xlabel('Time [sec]');
+ylabel('Amplitude');
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Setting different Values for Fs then sample and sinc interpolation
+%%%% Fs = 50;
+% sampling signals
+fs_new = 50;
+ts_new = 0: 1/fs_new :0.2 ;
+ys1_new = sin(2*pi*f*ts_new) + cos(4*pi*f*ts_new);
+ys2_new = sawtooth(2*pi*f*ts_new);
+
+figure(5);
+subplot(2,1,1);
+plot(t,y1);
+hold on;
+stem(ts_new,ys1_new);
+title("signal y1 sampled with Fs = 50Hz");
+xlabel('Time');
+ylabel('Amplitude');
+legend('Original signal', 'Sampled signal');
+subplot(2,1,2);
+plot(t,y2);
+hold on;
+stem(ts_new,ys2_new);
+title("signal y2 sampled with Fs = 50Hz");
+xlabel('Time');
+ylabel('Amplitude');
+legend('Original signal', 'Sampled signal');
+
+% reconstructing signals by sinc interpolation
+yr1_new = zeros(size(t));
+yr2_new = zeros(size(t));
+
+for i = 1 : length(t)
+ for n = 0 : length(ts_new) - 1
+ yr1_new(i) = yr1_new(i) + ys1_new(n + 1) * sinc((t(i) - n * (1/fs_new)) *fs_new);
+ yr2_new(i) = yr2_new(i) + ys2_new(n + 1) * sinc((t(i) - n * (1/fs_new)) *fs_new);
+ end
+end
+
+% plot signals
+figure(6);
+subplot(2, 1, 1);
+plot(t,y1);
+hold on;
+stem(ts_new, ys1_new);
+hold on;
+plot(t, yr1_new);
+grid minor;
+title('Reconstructed signal y1 by sinc interpolation (Fs = 50Hz)');
+xlabel('Time [sec]');
+ylabel('Amplitude');
+legend('Original signal', 'Sampled signal','reconstructed signal');
+
+subplot(2, 1, 2);
+plot(t,y2);
+hold on;
+stem(ts_new, ys2_new);
+hold on;
+plot(t, yr2_new);
+grid minor;
+title('Reconstructed signal y2 by sinc interpolation (Fs = 50Hz)');
+xlabel('Time [sec]');
+ylabel('Amplitude');
+legend('Original signal', 'Sampled signal','reconstructed signal');
+
+%%%% Fs = 35
+% sampling signals
+fs_new = 35;
+ts_new = 0: 1/fs_new :0.2 ;
+ys1_new = sin(2*pi*f*ts_new) + cos(4*pi*f*ts_new);
+ys2_new = sawtooth(2*pi*f*ts_new);
+
+figure(7);
+subplot(2,1,1);
+plot(t,y1);
+hold on;
+stem(ts_new,ys1_new);
+title("signal y1 sampled with Fs = 35Hz");
+xlabel('Time');
+ylabel('Amplitude');
+legend('Original signal', 'Sampled signal');
+subplot(2,1,2);
+plot(t,y2);
+hold on;
+stem(ts_new,ys2_new);
+title("signal y2 sampled with Fs = 35Hz");
+xlabel('Time');
+ylabel('Amplitude');
+legend('Original signal', 'Sampled signal');
+
+% reconstructing signals by sinc interpolation
+yr1_new = zeros(size(t));
+yr2_new = zeros(size(t));
+
+for i = 1 : length(t)
+ for n = 0 : length(ts_new) - 1
+ yr1_new(i) = yr1_new(i) + ys1_new(n + 1) * sinc((t(i) - n * (1/fs_new)) *fs_new);
+ yr2_new(i) = yr2_new(i) + ys2_new(n + 1) * sinc((t(i) - n * (1/fs_new)) *fs_new);
+ end
+end
+
+% plot signals
+figure(8);
+subplot(2, 1, 1);
+plot(t,y1);
+hold on;
+stem(ts_new, ys1_new);
+hold on;
+plot(t, yr1_new);
+grid minor;
+title('Reconstructed signal y1 by sinc interpolation (Fs = 35Hz)');
+xlabel('Time [sec]');
+ylabel('Amplitude');
+legend('Original signal', 'Sampled signal','reconstructed signal');
+
+subplot(2, 1, 2);
+plot(t,y2);
+hold on;
+stem(ts_new, ys2_new);
+hold on;
+plot(t, yr2_new);
+grid minor;
+title('Reconstructed signal y2 by sinc interpolation (Fs = 35Hz)');
+xlabel('Time [sec]');
+ylabel('Amplitude');
+legend('Original signal', 'Sampled signal','reconstructed signal');
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+figure(9);
+subplot(2, 1, 1);
+plot(t,y1);
+hold on;
+plot(t, yr1_new);
+grid minor;
+title('Reconstructed signal y1 vs the Original (Fs = 35Hz)');
+xlabel('Time [sec]');
+ylabel('Amplitude');
+legend('Original signal', 'reconstructed signal');
+
+subplot(2, 1, 2);
+plot(t,y2);
+hold on;
+plot(t, yr2_new);
+grid minor;
+title('Reconstructed signal y2 vs the Original (Fs = 35Hz)');
+xlabel('Time [sec]');
+ylabel('Amplitude');
+legend('Original signal','reconstructed signal');
+
+
+
+##### SOURCE END #####
+--></body></html>

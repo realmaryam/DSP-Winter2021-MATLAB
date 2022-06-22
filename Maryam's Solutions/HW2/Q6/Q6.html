@@ -1,0 +1,327 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Digital Signal Processing MATLAB HW2 - q5</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-12-17"><meta name="DC.source" content="Q6.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Digital Signal Processing MATLAB HW2 - q5</h1><!--introduction--><p>Professor: Dr. Sheikhzadeh Author: Maryam Barazande - 9723016 E-mail: <a href="mailto:maryambarazande7@gmail.com">maryambarazande7@gmail.com</a> University: Amirkabir University of Technology</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Clear recent data</a></li><li><a href="#2">Equalizer</a></li><li><a href="#3">PART 1</a></li><li><a href="#4">PART2</a></li><li><a href="#5">PART3</a></li><li><a href="#6">PART4</a></li><li><a href="#7">PART5</a></li><li><a href="#8">PART6</a></li><li><a href="#9">PART8</a></li><li><a href="#10">PART7</a></li></ul></div><h2 id="1">Clear recent data</h2><pre class="codeinput">clear; close <span class="string">all</span>; clc;
+</pre><h2 id="2">Equalizer</h2><h2 id="3">PART 1</h2><pre class="codeinput">a = load(<span class="string">'a.mat'</span>);
+a = cell2mat(struct2cell(a));
+b = load(<span class="string">'b.mat'</span>);
+b = cell2mat(struct2cell(b));
+
+figure(1);
+freqz(b,a);
+title(<span class="string">"frequency response of the channel"</span>);
+</pre><img vspace="5" hspace="5" src="Q6_01.png" alt=""> <h2 id="4">PART2</h2><pre class="codeinput">figure(2);
+zplane(b,a);
+title(<span class="string">"pole-zero locations of the channel system function"</span>);
+</pre><img vspace="5" hspace="5" src="Q6_02.png" alt=""> <img vspace="5" hspace="5" src="Q6_03.png" alt=""> <h2 id="5">PART3</h2><pre class="codeinput">audioFile = <span class="string">'HW2_Q6_voice.wav'</span>;
+[audio , Fs] = audioread(audioFile);
+L = length(audio);
+slength = L/Fs;
+t = (linspace(0, slength, L))';
+freq_domain = fftshift(fft(audio));
+freq_L = length(freq_domain);
+freq_grid = (-freq_L/2 : freq_L/2-1) / (freq_L/Fs);
+
+figure(3);
+subplot(2,1,1);
+plot(freq_grid,abs(freq_domain));
+xlabel(<span class="string">"Freqency(Hz)"</span>);
+ylabel(<span class="string">"magnitude"</span>);
+title(<span class="string">"frequency spectrum of Audio file"</span>);
+subplot(2,1,2);
+plot(freq_grid,angle(freq_domain));
+xlabel(<span class="string">"Freqency(Hz)"</span>);
+ylabel(<span class="string">"Phase"</span>);
+<span class="comment">% sound(audio,Fs);      % to hear the original audio uncomment this line</span>
+</pre><img vspace="5" hspace="5" src="Q6_04.png" alt=""> <h2 id="6">PART4</h2><pre class="codeinput">y = filter(b,a,audio);
+<span class="comment">% Time Domain</span>
+figure(4);
+plot(t,y);
+title(<span class="string">"output of filtered audio in time domain"</span>);
+xlabel(<span class="string">'Time'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+ylim([-20,20]);
+<span class="comment">% Frequency Domain</span>
+y_f = fftshift(fft(y));
+figure(5);
+subplot(2,1,1);
+plot(freq_grid,abs(y_f));
+title(<span class="string">"output of filtered audio in frequency domain"</span>);
+xlabel(<span class="string">"Freqency(Hz)"</span>);
+ylabel(<span class="string">"magnitude"</span>);
+subplot(2,1,2);
+plot(freq_grid,angle(y_f));
+xlabel(<span class="string">"Freqency(Hz)"</span>);
+ylabel(<span class="string">"phase"</span>);
+<span class="comment">% sound(y,Fs);          % to hear the audio after filter uncomment this</span>
+</pre><img vspace="5" hspace="5" src="Q6_05.png" alt=""> <img vspace="5" hspace="5" src="Q6_06.png" alt=""> <h2 id="7">PART5</h2><p>Design Zero forcing equalizer</p><pre class="codeinput">b_eq = a;
+a_eq = b;
+figure(6);
+zplane(b_eq,a_eq);
+title(<span class="string">"pole-zero locations of the Zero forcing equalizer "</span>);
+y_eq = filter(b_eq,a_eq,y);
+
+figure(7);
+freqz(b_eq,a_eq);
+title(<span class="string">"frequency response of the equalizer"</span>);
+</pre><img vspace="5" hspace="5" src="Q6_07.png" alt=""> <img vspace="5" hspace="5" src="Q6_08.png" alt=""> <h2 id="8">PART6</h2><pre class="codeinput">a_overal = conv(a,a_eq);
+b_overal = conv(b,b_eq);
+figure(8);
+freqz(b_overal,a_overal);
+title(<span class="string">"frequency response of the overall system"</span>);
+</pre><img vspace="5" hspace="5" src="Q6_09.png" alt=""> <h2 id="9">PART8</h2><pre class="codeinput">n4 = 4;
+range4 = 2^(n4-1);
+aq4 = round(a_eq*range4)/range4 ;
+bq4 = round(b_eq*range4)/range4 ;
+
+n8 = 8;
+range8 = 2^(n8-1);
+aq8 = round(a_eq*range8)/range8 ;
+bq8 = round(b_eq*range8)/range8 ;
+
+n16 = 16;
+range16 = 2^(n16-1);
+aq16 = round(a_eq*range16)/range16 ;
+bq16 = round(b_eq*range16)/range16 ;
+
+n32 = 32;
+range32 = 2^(n32-1);
+aq32 = round(a_eq*range32)/range32 ;
+bq32 = round(b_eq*range32)/range32 ;
+
+figure(9);
+subplot(2,2,1);
+zplane(bq4,aq4);
+title(<span class="string">"pole-zero locations of quantized coefficients with n = 4"</span>);
+subplot(2,2,2);
+zplane(bq8,aq8);
+title(<span class="string">"pole-zero locations of quantized coefficients with n = 8"</span>);
+subplot(2,2,3);
+zplane(bq16,aq16);
+title(<span class="string">"pole-zero locations of quantized coefficients with n = 16"</span>);
+subplot(2,2,4);
+zplane(bq32,aq32);
+title(<span class="string">"pole-zero locations of quantized coefficients with n = 32"</span>);
+</pre><img vspace="5" hspace="5" src="Q6_10.png" alt=""> <h2 id="10">PART7</h2><pre class="codeinput"><span class="keyword">function</span> [dynamic_range] = quantize_m(v,n)
+    range = 2^(n-1);
+    <span class="keyword">for</span> i = 0:length(v)
+       <span class="keyword">if</span> v(i)&gt;max
+           max = v(i);
+       <span class="keyword">end</span>
+       <span class="keyword">if</span> v(i)&lt;min
+           min = v(i);
+       <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    dynamic_range = max - min;
+
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Digital Signal Processing MATLAB HW2 - q5
+% Professor: Dr. Sheikhzadeh
+% Author: Maryam Barazande - 9723016
+% E-mail: maryambarazande7@gmail.com
+% University: Amirkabir University of Technology
+%% Clear recent data
+clear; close all; clc;
+%% Equalizer
+%% PART 1
+a = load('a.mat');
+a = cell2mat(struct2cell(a));
+b = load('b.mat');
+b = cell2mat(struct2cell(b));
+
+figure(1);
+freqz(b,a);
+title("frequency response of the channel");
+
+%% PART2
+figure(2);
+zplane(b,a);
+title("pole-zero locations of the channel system function");
+
+%% PART3
+audioFile = 'HW2_Q6_voice.wav';
+[audio , Fs] = audioread(audioFile);
+L = length(audio);
+slength = L/Fs;
+t = (linspace(0, slength, L))';
+freq_domain = fftshift(fft(audio));
+freq_L = length(freq_domain);
+freq_grid = (-freq_L/2 : freq_L/2-1) / (freq_L/Fs);
+
+figure(3);
+subplot(2,1,1);
+plot(freq_grid,abs(freq_domain));
+xlabel("Freqency(Hz)");
+ylabel("magnitude");
+title("frequency spectrum of Audio file");
+subplot(2,1,2);
+plot(freq_grid,angle(freq_domain));
+xlabel("Freqency(Hz)");
+ylabel("Phase");
+% sound(audio,Fs);      % to hear the original audio uncomment this line
+
+%% PART4
+y = filter(b,a,audio);
+% Time Domain
+figure(4);
+plot(t,y);
+title("output of filtered audio in time domain");
+xlabel('Time');
+ylabel('Amplitude');
+ylim([-20,20]);
+% Frequency Domain
+y_f = fftshift(fft(y));
+figure(5);
+subplot(2,1,1);
+plot(freq_grid,abs(y_f));
+title("output of filtered audio in frequency domain");
+xlabel("Freqency(Hz)");
+ylabel("magnitude");
+subplot(2,1,2);
+plot(freq_grid,angle(y_f));
+xlabel("Freqency(Hz)");
+ylabel("phase");
+% sound(y,Fs);          % to hear the audio after filter uncomment this
+%% PART5
+% Design Zero forcing equalizer 
+b_eq = a;
+a_eq = b;
+figure(6);
+zplane(b_eq,a_eq);
+title("pole-zero locations of the Zero forcing equalizer ");
+y_eq = filter(b_eq,a_eq,y);
+
+figure(7);
+freqz(b_eq,a_eq);
+title("frequency response of the equalizer");
+
+%% PART6
+a_overal = conv(a,a_eq);
+b_overal = conv(b,b_eq);
+figure(8);
+freqz(b_overal,a_overal);
+title("frequency response of the overall system");
+
+
+
+%% PART8
+n4 = 4;
+range4 = 2^(n4-1);
+aq4 = round(a_eq*range4)/range4 ;
+bq4 = round(b_eq*range4)/range4 ;
+
+n8 = 8;
+range8 = 2^(n8-1);
+aq8 = round(a_eq*range8)/range8 ;
+bq8 = round(b_eq*range8)/range8 ;
+
+n16 = 16;
+range16 = 2^(n16-1);
+aq16 = round(a_eq*range16)/range16 ;
+bq16 = round(b_eq*range16)/range16 ;
+
+n32 = 32;
+range32 = 2^(n32-1);
+aq32 = round(a_eq*range32)/range32 ;
+bq32 = round(b_eq*range32)/range32 ;
+
+figure(9);
+subplot(2,2,1);
+zplane(bq4,aq4);
+title("pole-zero locations of quantized coefficients with n = 4");
+subplot(2,2,2);
+zplane(bq8,aq8);
+title("pole-zero locations of quantized coefficients with n = 8");
+subplot(2,2,3);
+zplane(bq16,aq16);
+title("pole-zero locations of quantized coefficients with n = 16");
+subplot(2,2,4);
+zplane(bq32,aq32);
+title("pole-zero locations of quantized coefficients with n = 32");
+
+
+%% PART7
+function [dynamic_range] = quantize_m(v,n)
+    range = 2^(n-1);
+    for i = 0:length(v)
+       if v(i)>max
+           max = v(i);
+       end
+       if v(i)<min
+           min = v(i);
+       end
+    end
+    dynamic_range = max - min;
+    
+end
+
+##### SOURCE END #####
+--></body></html>

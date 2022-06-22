@@ -1,0 +1,236 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Digital Signal Processing MATLAB HW3 - q2</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-01-05"><meta name="DC.source" content="Q2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Digital Signal Processing MATLAB HW3 - q2</h1><!--introduction--><p>Professor: Dr. Sheikhzadeh Author: Maryam Barazande - 9723016 E-mail: <a href="mailto:maryambarazande7@gmail.com">maryambarazande7@gmail.com</a> University: Amirkabir University of Technology</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Clear recent data</a></li><li><a href="#2">A. Bilinear transformation</a></li><li><a href="#3">B. Normalized Butterworth</a></li><li><a href="#4">C.Filtering</a></li><li><a href="#5">Butterworth Function</a></li></ul></div><h2 id="1">Clear recent data</h2><pre class="codeinput">clear; close <span class="string">all</span>; clc;
+</pre><h2 id="2">A. Bilinear transformation</h2><p>part 1</p><pre class="codeinput"><span class="comment">% define parameters</span>
+wp = 0.2*pi;
+ws = 0.4*pi;
+Rp = 1;
+As = 20;
+T = 2;
+Fs = 1/T
+
+OmegaP = (2/T)*tan(wp/2);
+OmegaS = (2/T)*tan(ws/2);
+
+[cs,ds] = afd_butt(OmegaP,OmegaS,Rp,As); <span class="comment">%butterworth filter design in continuous domain</span>
+[b1,a1] = bilinear(cs,ds,Fs); <span class="comment">%butterworth continuous to discrete</span>
+
+figure(1);
+freqz(b1,a1);
+title(<span class="string">'Frequency Resp of Butterworth 1st approach'</span>);
+</pre><pre class="codeoutput">
+Fs =
+
+    0.5000
+
+
+*** Butterworth Filter Order =  4 
+</pre><img vspace="5" hspace="5" src="Q2_01.png" alt=""> <h2 id="3">B. Normalized Butterworth</h2><p>part 2</p><pre class="codeinput">OmegaP = (2/T)*tan(wp/2);
+OmegaS = (2/T)*tan(ws/2);
+N =ceil((log10((10^(Rp/10)-1)/(10^(As/10)-1)))/(2*log10(OmegaP/OmegaS)));
+OmegaC = OmegaP/((10^(Rp/10)-1)^(1/(2*N)));
+
+wn = (2/pi)*atan((OmegaC*T)/2);
+[b2,a2] = butter(N,wn); <span class="comment">%butterworth direct design in discrete domain</span>
+
+figure(2);
+freqz(b2,a2);
+title(<span class="string">'Freq Resp of Butterworth 2nd approach'</span>);
+</pre><img vspace="5" hspace="5" src="Q2_02.png" alt=""> <h2 id="4">C.Filtering</h2><p>part 3</p><pre class="codeinput">[audio , Fs] = audioread(<span class="string">'HW3_Q2_multi_tone.wav'</span>) ;
+audio = (audio)' ;                     <span class="comment">%transposing audio file</span>
+
+figure(3);
+freqz(audio);
+title(<span class="string">'audio Freq Response'</span>);
+
+filtered_audio1 = filter(b1,a1,audio); <span class="comment">%first methof filter on audio file</span>
+figure(4);
+freqz(filtered_audio1);
+title(<span class="string">'audio Butterworth Filtered 1'</span>);
+
+filtered_audio2 = filter(b2,a2,audio); <span class="comment">%second method filter on audio file</span>
+figure(5);
+freqz(filtered_audio2);
+title(<span class="string">'audio Butterworth Filtered 2'</span>);
+</pre><img vspace="5" hspace="5" src="Q2_03.png" alt=""> <img vspace="5" hspace="5" src="Q2_04.png" alt=""> <img vspace="5" hspace="5" src="Q2_05.png" alt=""> <h2 id="5">Butterworth Function</h2><pre class="codeinput"><span class="keyword">function</span> [b,a] = u_buttap(N,Omegac) <span class="comment">%%copy butterworth design function from the book</span>
+[z,p,k] = buttap(N);
+p = p*Omegac;
+k = k*Omegac^N;
+B = real(poly(z));
+b0 = k;
+b = k*B;
+a = real(poly(p));
+<span class="keyword">end</span>
+<span class="keyword">function</span> [b,a] = afd_butt(Wp,Ws,Rp,As)
+<span class="keyword">if</span> Wp &lt;= 0
+error(<span class="string">'Passband edge must be larger than 0'</span>)
+<span class="keyword">end</span>
+<span class="keyword">if</span> Ws &lt;= Wp
+error(<span class="string">'Stopband edge must be larger than Passband edge'</span>)
+<span class="keyword">end</span>
+<span class="keyword">if</span> (Rp &lt;= 0) || (As &lt; 0)
+error(<span class="string">'PB ripple and/or SB attenuation ust be larger than 0'</span>)
+<span class="keyword">end</span>
+N = ceil((log10((10^(Rp/10)-1)/(10^(As/10)-1)))/(2*log10(Wp/Ws)));
+fprintf(<span class="string">'\n*** Butterworth Filter Order = %2.0f \n'</span>,N) ;
+OmegaC = Wp/((10^(Rp/10)-1)^(1/(2*N)));
+[b,a]=u_buttap(N,OmegaC);
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Digital Signal Processing MATLAB HW3 - q2
+% Professor: Dr. Sheikhzadeh
+% Author: Maryam Barazande - 9723016
+% E-mail: maryambarazande7@gmail.com
+% University: Amirkabir University of Technology
+%% Clear recent data
+clear; close all; clc;
+%% A. Bilinear transformation
+% part 1
+
+% define parameters
+wp = 0.2*pi;
+ws = 0.4*pi;
+Rp = 1;
+As = 20;
+T = 2;
+Fs = 1/T
+
+OmegaP = (2/T)*tan(wp/2);
+OmegaS = (2/T)*tan(ws/2);
+
+[cs,ds] = afd_butt(OmegaP,OmegaS,Rp,As); %butterworth filter design in continuous domain
+[b1,a1] = bilinear(cs,ds,Fs); %butterworth continuous to discrete
+
+figure(1);
+freqz(b1,a1);
+title('Frequency Resp of Butterworth 1st approach');
+
+%% B. Normalized Butterworth
+% part 2
+
+OmegaP = (2/T)*tan(wp/2);
+OmegaS = (2/T)*tan(ws/2);
+N =ceil((log10((10^(Rp/10)-1)/(10^(As/10)-1)))/(2*log10(OmegaP/OmegaS)));
+OmegaC = OmegaP/((10^(Rp/10)-1)^(1/(2*N)));
+
+wn = (2/pi)*atan((OmegaC*T)/2);
+[b2,a2] = butter(N,wn); %butterworth direct design in discrete domain
+
+figure(2);
+freqz(b2,a2);
+title('Freq Resp of Butterworth 2nd approach');
+
+%% C.Filtering
+% part 3 
+[audio , Fs] = audioread('HW3_Q2_multi_tone.wav') ;
+audio = (audio)' ;                     %transposing audio file
+
+figure(3);
+freqz(audio);
+title('audio Freq Response');
+
+filtered_audio1 = filter(b1,a1,audio); %first methof filter on audio file
+figure(4);
+freqz(filtered_audio1);
+title('audio Butterworth Filtered 1');
+
+filtered_audio2 = filter(b2,a2,audio); %second method filter on audio file
+figure(5);
+freqz(filtered_audio2);
+title('audio Butterworth Filtered 2');
+
+%%  Butterworth Function
+function [b,a] = u_buttap(N,Omegac) %%copy butterworth design function from the book
+[z,p,k] = buttap(N);
+p = p*Omegac;
+k = k*Omegac^N;
+B = real(poly(z));
+b0 = k; 
+b = k*B;
+a = real(poly(p));
+end
+function [b,a] = afd_butt(Wp,Ws,Rp,As)
+if Wp <= 0
+error('Passband edge must be larger than 0')
+end
+if Ws <= Wp
+error('Stopband edge must be larger than Passband edge')
+end
+if (Rp <= 0) || (As < 0)
+error('PB ripple and/or SB attenuation ust be larger than 0')
+end
+N = ceil((log10((10^(Rp/10)-1)/(10^(As/10)-1)))/(2*log10(Wp/Ws)));
+fprintf('\n*** Butterworth Filter Order = %2.0f \n',N) ;
+OmegaC = Wp/((10^(Rp/10)-1)^(1/(2*N)));
+[b,a]=u_buttap(N,OmegaC);
+end
+##### SOURCE END #####
+--></body></html>
